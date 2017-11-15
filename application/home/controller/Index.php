@@ -13,7 +13,7 @@ class Index
     public function test(){
     	$users = User::all();
     	foreach ($users as $user){
-    		var_dump($user->name);
+    		var_dump($user->token);
     	}
     }
 }

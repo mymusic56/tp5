@@ -10,3 +10,8 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+use think\Route;
+
+#域名部署实现路由
+Route::domain('tp5.mytest.com','index');
+Route::domain('tp5home.mytest.com','home');

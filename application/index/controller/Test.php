@@ -4,6 +4,9 @@ use app\index\model\User;
 use think\View;
 use think\Controller;
 use think\Loader;
+use think\Request;
+use think\Session;
+use think\Cookie;
 
 class Test extends Controller{
 	
@@ -38,6 +41,8 @@ class Test extends Controller{
 		$view = new View();
 		$view->name = 'thinkphp';
 		$view->users = $users;
+		
+		$view->aaa = 2;
 		return $view->fetch();
 	}
 	
@@ -87,6 +92,39 @@ class Test extends Controller{
 		$users = User::all([27,28]);
 		foreach ($users as $key => $u){
 			var_dump($u->name);
+		}
+	}
+	
+	/**
+	 * url : http://tp5.mytest.com/index/test/requestInstance/a/1.xml
+	 * @param unknown $a
+	 */
+	public function requestInstance($a){
+		$header = Request::instance()->header();
+		var_dump($header);
+		
+		$res = Request::instance()->ext();
+		var_dump($a,$res);
+		
+	}
+	
+	public function sessionTest(){
+		$key = 'name';
+// 		$v = Request::instance()->session($key);
+		$v = Session::get($key);
+		if(!$v){
+			Session::set($key,'thinkphp');
+// 			Request::instance()->session($key, 'zhangsan');
+		}else{
+			var_dump($v);
+		}
+		
+		$v = Cookie::get($key);
+		if(!$v){
+			var_dump('cookie does not exist');
+			Cookie::set($key,'cookie_test');
+		}else{
+			var_dump($v);
 		}
 	}
 	
